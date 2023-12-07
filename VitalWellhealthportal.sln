@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalWellhealthportal.Server", "VitalWellhealthportal\Server\VitalWellhealthportal.Server.csproj", "{4E7EEEEC-560C-4CA4-98B6-D396C4F088E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalWellhealthportal.Client", "VitalWellhealthportal\Client\VitalWellhealthportal.Client.csproj", "{E692CDC0-88D5-4A1A-9321-48C25B11B23E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalWellhealthportal.Shared", "VitalWellhealthportal\Shared\VitalWellhealthportal.Shared.csproj", "{2071A1CA-4958-412F-997A-82006B5FA514}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E7EEEEC-560C-4CA4-98B6-D396C4F088E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E7EEEEC-560C-4CA4-98B6-D396C4F088E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E7EEEEC-560C-4CA4-98B6-D396C4F088E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E7EEEEC-560C-4CA4-98B6-D396C4F088E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E692CDC0-88D5-4A1A-9321-48C25B11B23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E692CDC0-88D5-4A1A-9321-48C25B11B23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E692CDC0-88D5-4A1A-9321-48C25B11B23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E692CDC0-88D5-4A1A-9321-48C25B11B23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2071A1CA-4958-412F-997A-82006B5FA514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2071A1CA-4958-412F-997A-82006B5FA514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2071A1CA-4958-412F-997A-82006B5FA514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2071A1CA-4958-412F-997A-82006B5FA514}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {813C5C94-7100-4B45-B9C3-C916281F27CF}
+	EndGlobalSection
+EndGlobal
