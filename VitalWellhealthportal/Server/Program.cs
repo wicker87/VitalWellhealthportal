@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using VitalWellhealthportal.Server.Data;
 using VitalWellhealthportal.Server.Models;
 using Microsoft.AspNetCore.Identity;
+using VitalWellhealthportal.Server.IRepository;
+using VitalWellhealthportal.Server.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,8 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

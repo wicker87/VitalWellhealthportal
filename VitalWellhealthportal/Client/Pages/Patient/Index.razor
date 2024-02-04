@@ -1,0 +1,76 @@
+﻿@page "/patients/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">patient patients</h3>
+
+@if (Patients == null)
+{
+    <div class="alert alert-info">loading Patients...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>NRIC</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Date Of birth</th>
+                <th>phone number</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Patients)
+            {
+                <tr>
+                    <td>@patient.Name</td>
+                    <td>@patient.NRIC</td>
+                    <td>@patient.Age</td>
+                    <td>@patient.Address</td>
+                    <td>@patient.DOB</td>
+                    <td>@patient.PhoneNumber</td>
+                    <td>
+                        <a href="/patients/view/@patient.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/patient/edit/@patient.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(patient.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Patient>? Patients;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Patients = await _client.GetFromJsonAsync<List<Patient>>($"{Endpoints.PatientsEndpoint}");
+
+        async Task Delete(int patientId)
+        {
+            if (Patients != null)
+            {
+                var patient = Patients.First(q => q.Id == patientId);
+                var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete your {patient.Name}?");
+                if (confirm)
+                {
+                    await _client.DeleteAsync($"{Endpoints.PatientsEndpoint}/{patientId}");
+                    await OnInitializedAsync();
+                }
+            }
+        }
+    }
+
+}

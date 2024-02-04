@@ -1,0 +1,68 @@
+﻿@page "/homeCareBookings/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">patient homeCareBookings</h3>
+
+@if (HomeCareBookings == null)
+{
+    <div class="alert alert-info">loading HomeCareBookings...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Date and time</th>
+                <th>patient name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var homeCareBooking in HomeCareBookings)
+            {
+                <tr>
+                    <td>@homeCareBooking.Booking</td>
+                    <td>@homeCareBooking.Patient.Name</td>
+                    <td>
+                        <a href="/homeCareBookings/view/@homeCareBooking.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/homeCareBooking/edit/@homeCareBooking.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(homeCareBooking.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<HomeCareBooking>? HomeCareBookings;
+
+    protected async override Task OnInitializedAsync()
+    {
+        HomeCareBookings = await _client.GetFromJsonAsync<List<HomeCareBooking>>($"{Endpoints.HomeCareBookingsEndpoint}");
+
+        async Task Delete(int homeCareBookingId)
+        {
+            if (HomeCareBookings != null)
+            {
+                var homeCareBooking = HomeCareBookings.First(q => q.Id == homeCareBookingId);
+                var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete your visit on {homeCareBooking.Booking} for {homeCareBooking.Patient.Name}?");
+                if (confirm)
+                {
+                    await _client.DeleteAsync($"{Endpoints.HomeCareBookingsEndpoint}/{homeCareBookingId}");
+                    await OnInitializedAsync();
+                }
+            }
+        }
+    }
+
+}

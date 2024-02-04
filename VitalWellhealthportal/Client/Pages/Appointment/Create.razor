@@ -1,0 +1,26 @@
+﻿@page "/appointment/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create new appointment</h3>
+<hr />
+<br />
+
+@code {
+    Appointment appointment = new Appointment();
+
+    private IList<Patient>? Patients;
+    private IList<Staff>? Staffs;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Patients = await _client.GetFromJsonAsync<List<Patient>>($"{Endpoints.PatientsEndpoint}");
+        Staffs = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffsEndpoint}");
+    }
+
+    private async Task CreateAppointment()
+    {
+        await _client.PostAsJsonAsync(Endpoints.AppointmentsEndpoint, appointment);
+        _navManager.NavigateTo("/appointments/");
+    }
+}
